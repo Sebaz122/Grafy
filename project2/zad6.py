@@ -40,7 +40,7 @@ if __name__ == "__main__":
     g1 = buildGraph(edges1)
     result1 = hamiltonCycle(g1)
     print("Hamilton cycle 1:", result1)
-    draw_graph(g1, "Hamilton1.png")
+    draw_graph(g1, "zad6_Hamilton1.png")
 
     edges2 = [
         ("1", "2"), ("2", "3"), ("2", "4"), ("2", "5")
@@ -48,4 +48,4 @@ if __name__ == "__main__":
     g2 = buildGraph(edges2)
     result2 = hamiltonCycle(g2)
     print("Hamilton cycle 2:", result2)
-    draw_graph(g2, "Hamilton2.png")
+    draw_graph(g2, "zad6_Hamilton2.png")

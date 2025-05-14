@@ -5,7 +5,7 @@ def createK_RegularGraph(k, size):
     if not canGraphBeCreated(sequence):
         return None
     graph = createGraphFromSequence(sequence)
-    return randomizeNotDirectedGraphWithoutChangingDegrees(graph)
+    return randomizeGraphWithoutChangingDegrees(graph)
 
 if __name__ == "__main__":
     graph = createK_RegularGraph(3, 8)

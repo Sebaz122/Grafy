@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
         count = 0
         for _ in range(100):
-            g2 = randomizeNotDirectedGraphWithoutChangingDegrees(g)
+            g2 = randomizeGraphWithoutChangingDegrees(g)
             if not graphEquals(g, g2):
                 count += 1
         print(f"Number of different graphs after randomization: {count}")

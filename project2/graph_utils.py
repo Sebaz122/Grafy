@@ -3,6 +3,7 @@ from copy import deepcopy
 import networkx as nx
 import matplotlib.pyplot as plt
 
+# Sprawdza, czy dany ciąg liczb może być ciągiem graficznym z listy stopni wierzchołków (algorytm Havel-Hakimi)
 def canGraphBeCreated(sequence):
     seq = sequence[:]
     if sum(seq) % 2 == 1:
@@ -20,12 +21,13 @@ def canGraphBeCreated(sequence):
             if seq[i] < 0:
                 return False
 
+# Tworzy graf prosty
 def createGraphFromSequence(sequence):
     if not canGraphBeCreated(sequence):
         return None
     n = len(sequence)
     graph = {i: set() for i in range(n)}
-    nodes = [(i, deg) for i, deg in enumerate(sequence)]
+    nodes = [(i, deg) for i, deg in enumerate(sequence)] # [(wierzchołek, stopień)]
     while True:
         nodes.sort(key=lambda x: x[1], reverse=True)
         if nodes[0][1] == 0:
@@ -41,6 +43,7 @@ def createGraphFromSequence(sequence):
             nodes[i] = (u, d - 1)
     return graph
 
+# Sprawdza, czy można wykonać zamianę par krawędzi (bez tworzenia pętli lub podwójnych krawędzi)
 def canEdgesBeSwapped(graph, edge1, edge2):
     a, b = edge1
     c, d = edge2
@@ -50,7 +53,8 @@ def canEdgesBeSwapped(graph, edge1, edge2):
         return False
     return True
 
-def randomizeNotDirectedGraphWithoutChangingDegrees(graph, count=10):
+# Randomizuje graf bez zmiany stopni
+def randomizeGraphWithoutChangingDegrees(graph, count=10):
     newGraph = deepcopy(graph)
     edges = list({(min(u, v), max(u, v)) for u in newGraph for v in newGraph[u] if u < v})
     loopCount = 0
@@ -71,6 +75,8 @@ def randomizeNotDirectedGraphWithoutChangingDegrees(graph, count=10):
                 for x, y in [(a, d), (b, c)]:
                     newGraph[x].add(y)
                     newGraph[y].add(x)
+                    
+                # aktualizujemy listę krawędzi
                 edges.remove(e1)
                 edges.remove(e2)
                 edges.append((min(a, d), max(a, d)))

@@ -6,6 +6,7 @@ from graph_utils import *
 def is_eulerian(graph):
     return all(len(neighbors) % 2 == 0 for neighbors in graph.values())
 
+# Zwraca wszystkie spójne składowe grafu
 def connected_components(graph):
     visited = set()
     components = []
@@ -27,6 +28,7 @@ def connected_components(graph):
 def count_connected_components(graph):
     return len(connected_components(graph))
 
+# Sprawdza, czy dana krawędź jest mostem, tzn. czy po jej usunięciu rośnie liczba składowych
 def is_bridge(graph, edge):
     u, v = edge
 
@@ -39,6 +41,7 @@ def is_bridge(graph, edge):
     count_after = count_connected_components(graph)
     return count_after > count_before
 
+# Szuka cyklu Eulera w grafie (algorytm Fleury’ego)
 def find_euler_cycle(graph):
     if not is_eulerian(graph):
         return None
@@ -48,6 +51,7 @@ def find_euler_cycle(graph):
 
     def traverse(v):
         for u in list(graph[v]):
+            # unikamy wielokrotnych przejść przez krawędź
             if (u, v) not in cycle and (v, u) not in cycle:
                 if len(graph[v]) == 1 or not is_bridge(graph, (v, u)):
                     graph[v].remove(u)
@@ -58,6 +62,7 @@ def find_euler_cycle(graph):
     traverse(start)
     return cycle[::-1]
 
+# Generuje losowy nieskierowany graf
 def generate_random_graph(n, p):
     graph = {f'v{i}': set() for i in range(n)}
     for i in range(n):
@@ -68,10 +73,11 @@ def generate_random_graph(n, p):
                 graph[v].add(u)
     return graph
 
+# Zwraca listę wierzchołków o nieparzystym stopniu
 def get_odd_degree_nodes(graph):
     return [v for v in graph if len(graph[v]) % 2 == 1]
 
-
+# Generuje losowy graf eulerowski (spójny oraz wszystkie wierzch parzystego stopnia)
 def generate_random_euler_graph(n=8, p=0.3):
     while True:
         graph = generate_random_graph(n, p)

@@ -1,5 +1,6 @@
 from graph_utils import *
 
+# Znajduje wszystkie spójne składowe grafu nieskierowanego.
 def components(graph):
     visited = {v: -1 for v in graph}
     component_id = 0
@@ -26,7 +27,7 @@ def dfs_component_mark(graph, current, component_id, visited):
             dfs_component_mark(graph, neighbor, component_id, visited)
 
 
-def task3():
+if __name__ == "__main__":
     graph = {f"v{i}": set() for i in range(1, 6)}
     edges = [
         ("v1", "v2"),
@@ -41,6 +42,3 @@ def task3():
     comp_map, largest = components(graph)
     print("All components:", comp_map)
     print("Largest component:", largest)
-
-if __name__ == "__main__":
-    task3()
